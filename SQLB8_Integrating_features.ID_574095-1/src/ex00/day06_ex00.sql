@@ -1,0 +1,18 @@
+CREATE TABLE person_discounts (
+    id bigint PRIMARY KEY,
+    person_id bigint NOT NULL,
+    pizzeria_id bigint NOT NULL,
+    discount numeric(5, 2) NOT NULL CHECK (discount >= 0 AND discount <= 100),
+
+CONSTRAINT fk_person_discounts_person_id 
+    FOREIGN KEY (person_id) 
+    REFERENCES person(id),
+
+CONSTRAINT fk_person_discounts_pizzeria_id 
+    FOREIGN KEY (pizzeria_id) 
+    REFERENCES pizzeria(id)
+);
+
+SELECT count(*) = 1 AS check
+FROM pg_tables
+WHERE tablename = 'person_discounts'
